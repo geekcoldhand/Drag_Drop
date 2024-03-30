@@ -2,6 +2,9 @@
 
 This is a simple Javascript-based demo where you can drag a box within a container
 
+![demo](/img/demo.gif)
+
+
 ## How to Use
 
 1. Clone the repository to your local machine:
