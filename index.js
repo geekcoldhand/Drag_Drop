@@ -1,30 +1,28 @@
-//Horatious Harris
-//GWACH
+// Horatious Harris
 const box = document.getElementById('box');
-const box1 = document.getElementById('box1');
+const box2 = document.getElementById('box1');
 
 let isDragging = false;
-let is1Dragging = false;
+let isDragging2 = false;
 let currX, currY;
-let lastX, lastY;
+let currX2, currY2;
 
 box.addEventListener('mousedown', (e) => {
   isDragging = true;
-  currX = e.x - box.offsetLeft;
-  currY = e.y - box.offsetTop;
+  currX = e.clientX - box.offsetLeft;
+  currY = e.clientY - box.offsetTop;
 });
 
-// box1.addEventListener('mousedown', (e) => {
-//     is1Dragging = true;
-//     currX = e.x - box.offsetLeft;
-//     currY = e.y - box.offsetTop;
-//   });
-
+box2.addEventListener('mousedown', (e) => {
+  isDragging2 = true;
+  currX2 = e.clientX - box2.offsetLeft;
+  currY2 = e.clientY - box2.offsetTop;
+});
 
 document.addEventListener('mousemove', (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-  if (isDragging ) {
+  if (isDragging) {
     const x = e.clientX - currX;
     const y = e.clientY - currY;
     const container = document.getElementById('container');
@@ -36,20 +34,20 @@ document.addEventListener('mousemove', (e) => {
     box.style.top = `${Math.min(Math.max(y, 0), maxY)}px`;
   }
 
-//   if (is1Dragging ) {
-//     const x = e.clientX - currX;
-//     const y = e.clientY - currY;
-//     const container = document.getElementById('container');
+  if (isDragging2) {
+    const x2 = e.clientX - currX2;
+    const y2 = e.clientY - currY2;
+    const container = document.getElementById('container');
 
-//     const maxX = container.offsetWidth - box1.offsetWidth;
-//     const maxY = container.offsetHeight - box1.offsetHeight;
+    const maxX2 = container.offsetWidth - box2.offsetWidth;
+    const maxY2 = container.offsetHeight - box2.offsetHeight;
 
-//     box1.style.left = `${Math.min(Math.max(x, 0), maxX)}px`;
-//     box1.style.top = `${Math.min(Math.max(y, 0), maxY)}px`;
-//   }
+    box2.style.left = `${Math.min(Math.max(x2, 0), maxX2)}px`;
+    box2.style.top = `${Math.min(Math.max(y2, 0), maxY2)}px`;
+  }
 });
 
 document.addEventListener('mouseup', () => {
   isDragging = false;
-  is2Dragging = false;
+  isDragging2 = false;
 });
