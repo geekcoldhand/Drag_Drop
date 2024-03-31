@@ -14,7 +14,7 @@ body {
     position: relative;
   }
   
-  #box, #box1 {
+  #box, #box1, #box3{
     width: 100px;
     height: 100px;
     background-color: rgb(65, 82, 150);

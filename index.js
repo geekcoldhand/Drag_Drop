@@ -1,53 +1,47 @@
-// Horatious Harris
-const box = document.getElementById('box');
-const box2 = document.getElementById('box1');
+// // Horatious Harris
+// Define an array to hold box elements
+const boxes = document.querySelectorAll(".box");
 
-let isDragging = false;
-let isDragging2 = false;
-let currX, currY;
-let currX2, currY2;
+// Define an object to hold dragging state and position information for each box
+const boxState = {};
 
-box.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  currX = e.clientX - box.offsetLeft;
-  currY = e.clientY - box.offsetTop;
+// Add event listeners for mousedown on each box
+boxes.forEach((box, index) => {
+  box.addEventListener("mousedown", (e) => {
+    boxState[index] = {
+      isDragging: true,
+      offsetX: e.clientX - box.offsetLeft,
+      offsetY: e.clientY - box.offsetTop,
+    };
+  });
 });
 
-box2.addEventListener('mousedown', (e) => {
-  isDragging2 = true;
-  currX2 = e.clientX - box2.offsetLeft;
-  currY2 = e.clientY - box2.offsetTop;
-});
-
-document.addEventListener('mousemove', (e) => {
+// Add event listener for mousemove on the document
+document.addEventListener("mousemove", (e) => {
   e.preventDefault();
 
-  if (isDragging) {
-    const x = e.clientX - currX;
-    const y = e.clientY - currY;
-    const container = document.getElementById('container');
+  // Iterate over boxState object and update positions if dragging
+  Object.keys(boxState).forEach((key) => {
+    const state = boxState[key];
+    if (state.isDragging) {
+      const box = boxes[key];
+      const x = e.clientX - state.offsetX;
+      const y = e.clientY - state.offsetY;
+      const container = document.getElementById("container");
 
-    const maxX = container.offsetWidth - box.offsetWidth;
-    const maxY = container.offsetHeight - box.offsetHeight;
+      const maxX = container.offsetWidth - box.offsetWidth;
+      const maxY = container.offsetHeight - box.offsetHeight;
 
-    box.style.left = `${Math.min(Math.max(x, 0), maxX)}px`;
-    box.style.top = `${Math.min(Math.max(y, 0), maxY)}px`;
-  }
-
-  if (isDragging2) {
-    const x2 = e.clientX - currX2;
-    const y2 = e.clientY - currY2;
-    const container = document.getElementById('container');
-
-    const maxX2 = container.offsetWidth - box2.offsetWidth;
-    const maxY2 = container.offsetHeight - box2.offsetHeight;
-
-    box2.style.left = `${Math.min(Math.max(x2, 0), maxX2)}px`;
-    box2.style.top = `${Math.min(Math.max(y2, 0), maxY2)}px`;
-  }
+      box.style.left = `${Math.min(Math.max(x, 0), maxX)}px`;
+      box.style.top = `${Math.min(Math.max(y, 0), maxY)}px`;
+    }
+  });
 });
 
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-  isDragging2 = false;
+// Add event listener for mouseup on the document
+document.addEventListener("mouseup", () => {
+  // Reset dragging state for all boxes
+  Object.keys(boxState).forEach((key) => {
+    boxState[key].isDragging = false;
+  });
 });

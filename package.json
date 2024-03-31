@@ -1,0 +1,19 @@
+{
+  "name": "drag_drop",
+  "version": "1.0.0",
+  "description": "a demo of a basic emcom playground",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geekcoldhand/Drag_Drop.git"
+  },
+  "author": "HoratiousII",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/geekcoldhand/Drag_Drop/issues"
+  },
+  "homepage": "https://github.com/geekcoldhand/Drag_Drop#readme"
+}
