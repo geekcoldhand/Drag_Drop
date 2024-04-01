@@ -1,17 +1,38 @@
-// // Horatious Harris
-// Define an array to hold box elements
-const boxes = document.querySelectorAll(".box");
+//GWACH //Horatious Harris
+const dragItems = document.querySelectorAll(".box");
 
-// Define an object to hold dragging state and position information for each box
-const boxState = {};
+function randomizeDragItemPosition(items) {
+  const container = document.getElementById("container");
+  const containerBoundsRect = container.getBoundingClientRect();
 
-// Add event listeners for mousedown on each box
-boxes.forEach((box, index) => {
-  box.addEventListener("mousedown", (e) => {
-    boxState[index] = {
+  const maxX = containerBoundsRect.width - items.offsetWidth;
+  const maxY = containerBoundsRect.height - items.offsetHeight;
+
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
+
+  items.style.left = `${randomX}px`;
+  items.style.top = `${randomY}px`;
+}
+
+function populateBoxesWithDelay(items) {
+  items.forEach((item, index) => {
+    setTimeout(() => {
+      randomizeDragItemPosition(item);
+    }, index * 200); //lazy load
+  });
+}
+
+populateBoxesWithDelay(dragItems);
+
+const itemStateAndPosition = {};
+
+dragItems.forEach((item, index) => {
+  item.addEventListener("mousedown", (e) => {
+    itemStateAndPosition[index] = {
       isDragging: true,
-      offsetX: e.clientX - box.offsetLeft,
-      offsetY: e.clientY - box.offsetTop,
+      offsetX: e.clientX - item.offsetLeft,
+      offsetY: e.clientY - item.offsetTop,
     };
   });
 });
@@ -21,19 +42,19 @@ document.addEventListener("mousemove", (e) => {
   e.preventDefault();
 
   // Iterate over boxState object and update positions if dragging
-  Object.keys(boxState).forEach((key) => {
-    const state = boxState[key];
+  Object.keys(itemStateAndPosition).forEach((key) => {
+    const state = itemStateAndPosition[key];
     if (state.isDragging) {
-      const box = boxes[key];
+      const item = dragItems[key];
       const x = e.clientX - state.offsetX;
       const y = e.clientY - state.offsetY;
       const container = document.getElementById("container");
 
-      const maxX = container.offsetWidth - box.offsetWidth;
-      const maxY = container.offsetHeight - box.offsetHeight;
+      const maxX = container.offsetWidth - item.offsetWidth;
+      const maxY = container.offsetHeight - item.offsetHeight;
 
-      box.style.left = `${Math.min(Math.max(x, 0), maxX)}px`;
-      box.style.top = `${Math.min(Math.max(y, 0), maxY)}px`;
+      item.style.left = `${Math.min(Math.max(x, 0), maxX)}px`;
+      item.style.top = `${Math.min(Math.max(y, 0), maxY)}px`;
     }
   });
 });
@@ -41,7 +62,7 @@ document.addEventListener("mousemove", (e) => {
 // Add event listener for mouseup on the document
 document.addEventListener("mouseup", () => {
   // Reset dragging state for all boxes
-  Object.keys(boxState).forEach((key) => {
-    boxState[key].isDragging = false;
+  Object.keys(itemStateAndPosition).forEach((key) => {
+    itemStateAndPosition[key].isDragging = false;
   });
 });
