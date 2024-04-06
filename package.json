@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/geekcoldhand/Drag_Drop/issues"
   },
-  "homepage": "https://github.com/geekcoldhand/Drag_Drop#readme"
+  "homepage": "https://github.com/geekcoldhand/Drag_Drop#readme",
+  "dependencies": {
+    "pg": "^8.11.5"
+  }
 }
