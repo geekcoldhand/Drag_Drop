@@ -17,18 +17,17 @@ body {
   
   .box{
    position: absolute;
-    border-radius: 10px;
-   
-  }
-  
-  .img-button{
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
     background-color: transparent;
     border: none;
+  }
+  
+  .images{
+    width: 200px;
+    height: 200px;
+    object-fit: contain; 
     padding: 0;
   }
+  
   
   .draggable {
     cursor: pointer;

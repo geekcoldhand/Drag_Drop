@@ -1,6 +1,6 @@
 //GWACH //Horatious Harris
 const dragItems = document.querySelectorAll(".box");
-const item = document.querySelectorAll(".img-button");
+const imageButtonItem = document.querySelectorAll(".img-button");
 
 function randomizeDragItemPosition(items) {
   const container = document.getElementById("container");
@@ -69,13 +69,15 @@ document.addEventListener("mouseup", () => {
 });
 
 
-  const handleAddMetaData = async (e)=> {
+
+const handleAddMetaData = async (e) => {
   e.preventDefault();
 
- // const clicks = document.querySelector("#clicks").value.trim();
-  const date = Date.now;
-  
-  console.log("clients method... ", date);
+  // const clicks = document.querySelector("#clicks").value.trim();
+  const date = Date.now();
+  var today = new Date(date);
+
+  console.log("clients method... ", today);
 
   // const response = await fetch(`/products/`, {
   //   method: "POST",
@@ -95,7 +97,6 @@ document.addEventListener("mouseup", () => {
   //   alert("Failed to create post:::" + response.statusText);
   // }
 };
-item.forEach( itemElement => {
-itemElement.addEventListener("click", handleAddMetaData);
-})
-
+imageButtonItem.forEach((itemElement) => {
+  itemElement.addEventListener("click", handleAddMetaData);
+});
