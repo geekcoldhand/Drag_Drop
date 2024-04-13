@@ -14,14 +14,19 @@ body {
     position: relative;
   }
   
-  #box, #box1, #box3{
+  .box{
+   position: absolute;
+    border-radius: 10px;
+   
+  }
+  
+  .img-button{
     width: 200px;
     height: 200px;
     object-fit: contain;
-    border-radius: 10px;
-    position: absolute;
+
+    padding: 0;
   }
-  
   
   .draggable {
     cursor: pointer;

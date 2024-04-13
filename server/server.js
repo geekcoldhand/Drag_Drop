@@ -7,13 +7,47 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+//update product
+app.put("/products/:id ", async (req, res) => {
+  //try {
+    const productId = req.params?.id;
+    const { log_clicks } = req.body;
+    console.log("put clicked");
+    // Check if log_clicks is provided
+  //   if (!log_clicks) {
+  //     return res.status(400).json({ error: 'Missing log_clicks value' });
+  //   }
+  //   const query = `
+  //   UPDATE shopMetaDatas
+  //   SET log_clicks = $1
+  //   WHERE id = $2
+  //   RETURNING *;
+  // `;
+  // const values = [log_clicks, productId];
+  // const result = await pool.query(query, values);
+
+  //   if (result.rowCount === 0) {
+  //     return res.status(404).json({ error: 'Product not found' });
+  //   }
+
+  //   res.status(200).json({
+  //     message: "Product created successfully",
+  //     product: result.rows[0],
+  //   });
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).send("Failed to update product: Internal Server Error");
+   //}
+  
+});
+
 //all products
 app.get("/products", async (req, res) => {
   try {
     let product_name, log_clicks, log_date;
     const values = [product_name, log_clicks, log_date];
     const result = await pool.query("SELECT * FROM shopmetadata");
-    res.json(result.rows);
+    //res.json(result.rows);
     res.status(200).json(result.rows);
   } catch (error) {
     console.error(error);
@@ -21,16 +55,15 @@ app.get("/products", async (req, res) => {
   }
 });
 
-//get a products metadata
-
-//update products metadata
-
 //create new shop metadata
 app.post("/products", async (req, res) => {
   try {
     const { product_name, log_clicks, log_date } = req.body;
     const values = [product_name, log_clicks, log_date];
-    console.log(req.body);
+
+    if (!product_name || !log_clicks) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
     const result = await pool.query(
       "INSERT INTO shopmetadata (product_name, log_clicks, log_date) VALUES($1, $2, $3)",
       values
@@ -47,5 +80,5 @@ app.post("/products", async (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log("Server is running on port http://localhost:5000");
+  console.log("Server is running on port 5000 http://localhost:5000");
 });
