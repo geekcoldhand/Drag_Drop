@@ -7,12 +7,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-//update product
-app.put("/products/:id ", async (req, res) => {
+//update product clicks
+app.put("/products/:id/clicks", async (req, res) => {
   //try {
-    const productId = req.params?.id;
+    const productId = req.params.id;
     const { log_clicks } = req.body;
-    console.log("put clicked");
+    console.log("put clicked", log_clicks);
+    res.status(200).send(`put has beeen clicked with log_clicks`);
     // Check if log_clicks is provided
   //   if (!log_clicks) {
   //     return res.status(400).json({ error: 'Missing log_clicks value' });
