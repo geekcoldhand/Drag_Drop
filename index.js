@@ -68,34 +68,33 @@ document.addEventListener("mouseup", () => {
   });
 });
 
-
-
 const handleAddMetaData = async (e) => {
   e.preventDefault();
 
   // const clicks = document.querySelector("#clicks").value.trim();
+  var clicks = "417";
   const date = Date.now();
   var today = new Date(date);
 
   console.log("clients method... ", today);
 
-  // const response = await fetch(`/products/`, {
-  //   method: "POST",
-  //   credentials: "include",
-  //   body: JSON.stringify({
-  //     clicks,
-  //     date,
-  //   }),
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // });
+  const response = await fetch(`http://127.0.0.1:5000/products/1/clicks`, {
+    method: "PUT",
+    credentials: "include",
+    body: JSON.stringify({
+      clicks,
+      date,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-  // if (response.ok) {
-  //   document.location.replace("/");
-  // } else {
-  //   alert("Failed to create post:::" + response.statusText);
-  // }
+  if (response.ok) {
+    document.location.replace("/");
+  } else {
+    alert("Failed to create post:::" + response.statusText);
+  }
 };
 imageButtonItem.forEach((itemElement) => {
   itemElement.addEventListener("click", handleAddMetaData);

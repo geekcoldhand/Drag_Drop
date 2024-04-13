@@ -4,15 +4,20 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
+const coorOptions = {
+  origin: "http://127.0.0.1:8080",
+  optionSucessStatus: 200,
+  credentials: true
+}
+app.use(cors(coorOptions));
 app.use(express.json());
 
 //update product clicks
 app.put("/products/:id/clicks", async (req, res) => {
   //try {
     const productId = req.params.id;
-    const { log_clicks } = req.body;
-    console.log("put clicked", log_clicks);
+    const { log_clicks, log_date } = req.body;
+    console.log("put clicked", log_clicks );
     res.status(200).send(`put has beeen clicked with log_clicks`);
     // Check if log_clicks is provided
   //   if (!log_clicks) {
