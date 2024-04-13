@@ -5,6 +5,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #3e3d3d;
   }
   
   #container {
@@ -24,7 +25,8 @@ body {
     width: 200px;
     height: 200px;
     object-fit: contain;
-
+    background-color: transparent;
+    border: none;
     padding: 0;
   }
   

@@ -1,5 +1,6 @@
 //GWACH //Horatious Harris
 const dragItems = document.querySelectorAll(".box");
+const item = document.querySelectorAll(".img-button");
 
 function randomizeDragItemPosition(items) {
   const container = document.getElementById("container");
@@ -66,3 +67,35 @@ document.addEventListener("mouseup", () => {
     itemStateAndPosition[key].isDragging = false;
   });
 });
+
+
+  const handleAddMetaData = async (e)=> {
+  e.preventDefault();
+
+ // const clicks = document.querySelector("#clicks").value.trim();
+  const date = Date.now;
+  
+  console.log("clients method... ", date);
+
+  // const response = await fetch(`/products/`, {
+  //   method: "POST",
+  //   credentials: "include",
+  //   body: JSON.stringify({
+  //     clicks,
+  //     date,
+  //   }),
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
+
+  // if (response.ok) {
+  //   document.location.replace("/");
+  // } else {
+  //   alert("Failed to create post:::" + response.statusText);
+  // }
+};
+item.forEach( itemElement => {
+itemElement.addEventListener("click", handleAddMetaData);
+})
+
