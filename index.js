@@ -70,15 +70,12 @@ document.addEventListener("mouseup", () => {
 
 const handleAddMetaData = async (e) => {
   e.preventDefault();
-
-  // const clicks = document.querySelector("#clicks").value.trim();
-  var clicks = "417";
+ 
+  const productId =  e.target?.id;
   const date = Date.now();
   var today = new Date(date);
 
-  console.log("clients method... ", today);
-
-  const response = await fetch(`http://127.0.0.1:5000/products/1/clicks`, {
+  const response = await fetch(`http://127.0.0.1:5000/products/${productId}/clicks`, {
     method: "PUT",
     credentials: "include",
     body: JSON.stringify({
@@ -91,7 +88,7 @@ const handleAddMetaData = async (e) => {
   });
 
   if (response.ok) {
-    document.location.replace("/");
+    //document.location.replace("/");
   } else {
     alert("Failed to create post:::" + response.statusText);
   }

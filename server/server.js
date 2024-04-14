@@ -5,9 +5,9 @@ const cors = require("cors");
 const app = express();
 
 const coorOptions = {
-  origin: "http://127.0.0.1:8080",
+  origin: "http://127.0.0.1:8080", //take out for prod
   optionSucessStatus: 200,
-  credentials: true
+  credentials: true //take out for prod
 }
 app.use(cors(coorOptions));
 app.use(express.json());
@@ -16,20 +16,18 @@ app.use(express.json());
 app.put("/products/:id/clicks", async (req, res) => {
   try {
     const productId = req.params.id;
-    const { log_clicks, log_date } = req.body;
-    console.log("put clicked", log_clicks );
-
-    if (!log_clicks) {
-      return res.status(400).json({ error: 'Missing log_clicks value' });
+ 
+    if (!productId) {
+      return res.status(400).json({ error: 'Missing product id value' });
     }
     const query = `
     UPDATE shopMetaData
-    SET log_clicks = $1
-    WHERE id = $2
+    SET log_clicks = log_clicks + 1
+    WHERE id = $1
     RETURNING *;
   `;
-  const values = [log_clicks, productId];
-  const result = await pool.query(query, values);
+
+  const result = await pool.query(query, [productId]);
 
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Product not found' });
