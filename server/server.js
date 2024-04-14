@@ -14,36 +14,35 @@ app.use(express.json());
 
 //update product clicks
 app.put("/products/:id/clicks", async (req, res) => {
-  //try {
+  try {
     const productId = req.params.id;
     const { log_clicks, log_date } = req.body;
     console.log("put clicked", log_clicks );
-    res.status(200).send(`put has beeen clicked with log_clicks`);
-    // Check if log_clicks is provided
-  //   if (!log_clicks) {
-  //     return res.status(400).json({ error: 'Missing log_clicks value' });
-  //   }
-  //   const query = `
-  //   UPDATE shopMetaDatas
-  //   SET log_clicks = $1
-  //   WHERE id = $2
-  //   RETURNING *;
-  // `;
-  // const values = [log_clicks, productId];
-  // const result = await pool.query(query, values);
 
-  //   if (result.rowCount === 0) {
-  //     return res.status(404).json({ error: 'Product not found' });
-  //   }
+    if (!log_clicks) {
+      return res.status(400).json({ error: 'Missing log_clicks value' });
+    }
+    const query = `
+    UPDATE shopMetaData
+    SET log_clicks = $1
+    WHERE id = $2
+    RETURNING *;
+  `;
+  const values = [log_clicks, productId];
+  const result = await pool.query(query, values);
 
-  //   res.status(200).json({
-  //     message: "Product created successfully",
-  //     product: result.rows[0],
-  //   });
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).send("Failed to update product: Internal Server Error");
-   //}
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.status(200).json({
+      message: "Product created successfully",
+      product: result.rows[0],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Failed to update product: Internal Server Error");
+   }
   
 });
 
