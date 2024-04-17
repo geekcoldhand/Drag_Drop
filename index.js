@@ -78,10 +78,6 @@ const handleAddMetaData = async (e) => {
   const response = await fetch(`http://127.0.0.1:5000/products/${productId}/clicks`, {
     method: "PUT",
     credentials: "include",
-    body: JSON.stringify({
-      clicks,
-      date,
-    }),
     headers: {
       "Content-Type": "application/json",
     },
@@ -93,6 +89,12 @@ const handleAddMetaData = async (e) => {
     alert("Failed to create post:::" + response.statusText);
   }
 };
+
+const handleShopProduct = (e)=>{
+  console.log("double clikked ");
+}
+
 imageButtonItem.forEach((itemElement) => {
   itemElement.addEventListener("click", handleAddMetaData);
+  itemElement.addEventListener("dbclick", handleShopProduct);
 });
